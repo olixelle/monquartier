@@ -1,0 +1,242 @@
+{
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "scheme": "bearer",
+                "type": "http"
+            }
+        }
+    },
+    "info": {
+        "description": "This page describes the Rest API for MonQuartier",
+        "title": "MonQuartier",
+        "version": "1.0."
+    },
+    "openapi": "3.0.3",
+    "paths": {
+        "/login": {
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "summary": "get a token",
+                "tags": [
+                    "auth"
+                ]
+            }
+        },
+        "/neighborhood": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [
+                        ]
+                    }
+                ],
+                "summary": "Get the list of neighborhoods",
+                "tags": [
+                    "neighborhoods"
+                ]
+            }
+        },
+        "/offer/category": {
+            "get": {
+                "parameters": [
+                    {
+                        "description": "Parent ID",
+                        "in": "query",
+                        "name": "parent",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [
+                        ]
+                    }
+                ],
+                "summary": "Get the list of categories for offers",
+                "tags": [
+                    "offers"
+                ]
+            }
+        },
+        "/offer": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [
+                        ]
+                    }
+                ],
+                "summary": "Get the list of offers",
+                "tags": [
+                    "offers"
+                ]
+            }
+        },
+        "/publicmessage": {
+            "get": {
+                "parameters": [
+                    {
+                        "description": "From message ID",
+                        "in": "query",
+                        "name": "from",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [
+                        ]
+                    }
+                ],
+                "summary": "Get the list of public messages",
+                "tags": [
+                    "publicmessages"
+                ]
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "message": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "message"
+                                ],
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [
+                        ]
+                    }
+                ],
+                "summary": "Post a new public message",
+                "tags": [
+                    "publicmessages"
+                ]
+            }
+        }
+    },
+    "servers": [
+        {
+            "url": "https://{serverIdentifier}/api",
+            "variables": {
+                "serverIdentifier": {
+                    "default": "monquartier.alwaysdata.net",
+                    "description": "Your server"
+                }
+            }
+        }
+    ],
+    "tags": [
+        {
+            "description": "Authentication",
+            "name": "auth"
+        },
+        {
+            "description": "Neighborhoods",
+            "name": "neighborhoods"
+        },
+        {
+            "description": "Public messages",
+            "name": "publicmessages"
+        },
+        {
+            "description": "Offers",
+            "name": "offers"
+        }
+    ]
+}

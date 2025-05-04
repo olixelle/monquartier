@@ -15,124 +15,124 @@ class CategorySeeder extends Seeder
     public function run()
     {
         // Catégories racines
-        $objects = DB::table('categories')->insertGetId([
+        $objects = DB::table('offer_categories')->insertGetId([
             'title' => 'Objets',
             'description' => 'Tous types d\'objets à prêter ou échanger entre voisins',
             'parent' => null,
         ]);
 
-        $services = DB::table('categories')->insertGetId([
+        $services = DB::table('offer_categories')->insertGetId([
             'title' => 'Services',
             'description' => 'Services et coups de main entre voisins',
             'parent' => null,
         ]);
 
         // Sous-catégories pour Objets
-        $objetsCuisine = DB::table('categories')->insertGetId([
+        $objetsCuisine = DB::table('offer_categories')->insertGetId([
             'title' => 'Cuisine et Alimentation',
             'description' => 'Ustensiles, appareils de cuisine et produits alimentaires',
             'parent' => $objects,
         ]);
 
-        $objetsBricolage = DB::table('categories')->insertGetId([
+        $objetsBricolage = DB::table('offer_categories')->insertGetId([
             'title' => 'Bricolage et Outils',
             'description' => 'Outils et matériel pour les travaux et le bricolage',
             'parent' => $objects,
         ]);
 
-        $objetsJardinage = DB::table('categories')->insertGetId([
+        $objetsJardinage = DB::table('offer_categories')->insertGetId([
             'title' => 'Jardinage et Extérieur',
             'description' => 'Équipements et matériel pour le jardin et l\'extérieur',
             'parent' => $objects,
         ]);
 
-        $objetsJeux = DB::table('categories')->insertGetId([
+        $objetsJeux = DB::table('offer_categories')->insertGetId([
             'title' => 'Jeux et Loisirs',
             'description' => 'Jeux, livres, équipements sportifs et de divertissement',
             'parent' => $objects,
         ]);
 
-        $objetsElectronique = DB::table('categories')->insertGetId([
+        $objetsElectronique = DB::table('offer_categories')->insertGetId([
             'title' => 'Électronique et Multimédia',
             'description' => 'Équipements électroniques, informatiques et multimédias',
             'parent' => $objects,
         ]);
 
-        $objetsVehicules = DB::table('categories')->insertGetId([
+        $objetsVehicules = DB::table('offer_categories')->insertGetId([
             'title' => 'Véhicules et Mobilité',
             'description' => 'Vélos, trottinettes, accessoires auto et autres moyens de transport',
             'parent' => $objects,
         ]);
 
-        $objetsMaison = DB::table('categories')->insertGetId([
+        $objetsMaison = DB::table('offer_categories')->insertGetId([
             'title' => 'Maison et Décoration',
             'description' => 'Mobilier, décoration, électroménager',
             'parent' => $objects,
         ]);
 
-        $objetsVetements = DB::table('categories')->insertGetId([
+        $objetsVetements = DB::table('offer_categories')->insertGetId([
             'title' => 'Vêtements et Accessoires',
             'description' => 'Vêtements, chaussures, accessoires de mode',
             'parent' => $objects,
         ]);
 
-        $objetsBebe = DB::table('categories')->insertGetId([
+        $objetsBebe = DB::table('offer_categories')->insertGetId([
             'title' => 'Bébé et Enfant',
             'description' => 'Équipements, jouets et vêtements pour enfants',
             'parent' => $objects,
         ]);
 
         // Sous-catégories pour Services
-        $servicesBricolage = DB::table('categories')->insertGetId([
+        $servicesBricolage = DB::table('offer_categories')->insertGetId([
             'title' => 'Bricolage et Travaux',
             'description' => 'Aide pour bricolage, petits travaux, montage de meubles',
             'parent' => $services,
         ]);
 
-        $servicesJardinage = DB::table('categories')->insertGetId([
+        $servicesJardinage = DB::table('offer_categories')->insertGetId([
             'title' => 'Jardinage et Plantes',
             'description' => 'Entretien du jardin, conseils, arrosage de plantes',
             'parent' => $services,
         ]);
 
-        $servicesCuisine = DB::table('categories')->insertGetId([
+        $servicesCuisine = DB::table('offer_categories')->insertGetId([
             'title' => 'Cuisine et Repas',
             'description' => 'Préparation de repas, cours de cuisine, partage de repas',
             'parent' => $services,
         ]);
 
-        $servicesEducation = DB::table('categories')->insertGetId([
+        $servicesEducation = DB::table('offer_categories')->insertGetId([
             'title' => 'Éducation et Formation',
             'description' => 'Cours, soutien scolaire, aide aux devoirs',
             'parent' => $services,
         ]);
 
-        $servicesTransport = DB::table('categories')->insertGetId([
+        $servicesTransport = DB::table('offer_categories')->insertGetId([
             'title' => 'Transport et Covoiturage',
             'description' => 'Covoiturage, aide aux déplacements',
             'parent' => $services,
         ]);
 
-        $servicesAnimaux = DB::table('categories')->insertGetId([
+        $servicesAnimaux = DB::table('offer_categories')->insertGetId([
             'title' => 'Animaux de compagnie',
             'description' => 'Garde d\'animaux, promenade de chiens',
             'parent' => $services,
         ]);
 
-        $servicesInformatique = DB::table('categories')->insertGetId([
+        $servicesInformatique = DB::table('offer_categories')->insertGetId([
             'title' => 'Informatique et Technologie',
             'description' => 'Dépannage informatique, aide à l\'utilisation d\'appareils',
             'parent' => $services,
         ]);
 
-        $servicesBienEtre = DB::table('categories')->insertGetId([
+        $servicesBienEtre = DB::table('offer_categories')->insertGetId([
             'title' => 'Bien-être et Soins',
             'description' => 'Coiffure, soins esthétiques, relaxation',
             'parent' => $services,
         ]);
 
         // Sous-catégories de niveau 3 pour Objets - Cuisine
-        DB::table('categories')->insert([
+        DB::table('offer_categories')->insert([
             [
                 'title' => 'Ustensiles et Équipements',
                 'description' => 'Ustensiles de cuisine, plats, moules',
@@ -156,7 +156,7 @@ class CategorySeeder extends Seeder
         ]);
 
         // Sous-catégories de niveau 3 pour Objets - Bricolage
-        DB::table('categories')->insert([
+        DB::table('offer_categories')->insert([
             [
                 'title' => 'Outils à main',
                 'description' => 'Tournevis, marteaux, clés',
@@ -180,7 +180,7 @@ class CategorySeeder extends Seeder
         ]);
 
         // Sous-catégories de niveau 3 pour Objets - Jardinage
-        DB::table('categories')->insert([
+        DB::table('offer_categories')->insert([
             [
                 'title' => 'Outils de jardinage',
                 'description' => 'Pelles, râteaux, sécateurs',
@@ -204,7 +204,7 @@ class CategorySeeder extends Seeder
         ]);
 
         // Sous-catégories de niveau 3 pour Objets - Jeux
-        DB::table('categories')->insert([
+        DB::table('offer_categories')->insert([
             [
                 'title' => 'Jeux de société',
                 'description' => 'Jeux de plateau, cartes, jeux familiaux',
@@ -233,7 +233,7 @@ class CategorySeeder extends Seeder
         ]);
 
         // Sous-catégories pour Services - Bricolage
-        DB::table('categories')->insert([
+        DB::table('offer_categories')->insert([
             [
                 'title' => 'Montage de meubles',
                 'description' => 'Aide au montage de meubles en kit',
@@ -252,7 +252,7 @@ class CategorySeeder extends Seeder
         ]);
 
         // Sous-catégories pour Services - Jardinage
-        DB::table('categories')->insert([
+        DB::table('offer_categories')->insert([
             [
                 'title' => 'Tonte de pelouse',
                 'description' => 'Aide pour tondre la pelouse',
