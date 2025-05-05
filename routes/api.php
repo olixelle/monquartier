@@ -18,9 +18,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
 
+    Route::get('/neighborhood/announcement', [NeighborhoodController::class, 'announcement']);
+    Route::get('/neighborhood/people', [NeighborhoodController::class, 'people']);
+
     Route::get('/publicmessage', [PublicMessageController::class, 'index']);
     Route::post('/publicmessage', [PublicMessageController::class, 'publish']);
 
     Route::get('/offer/category', [OfferController::class, 'getCategories']);
     Route::get('/offer', [OfferController::class, 'index']);
+    Route::post('/offer', [OfferController::class, 'create']);
+    Route::delete('/offer/{id}', [OfferController::class, 'delete']);
+    Route::put('/offer/{id}', [OfferController::class, 'update']);
 });

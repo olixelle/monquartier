@@ -14,6 +14,66 @@
     },
     "openapi": "3.0.3",
     "paths": {
+        "/register": {
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "neighborhood_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "required": [
+                                    "email",
+                                    "password",
+                                    "password_confirmation",
+                                    "name",
+                                    "neighborhood_id"
+                                ],
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "summary": "Register",
+                "tags": [
+                    "user"
+                ]
+            }
+        },
         "/login": {
             "post": {
                 "requestBody": {
@@ -21,10 +81,10 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "password": {
+                                    "email": {
                                         "type": "string"
                                     },
-                                    "email": {
+                                    "password": {
                                         "type": "string"
                                     }
                                 },
@@ -58,11 +118,60 @@
                 },
                 "summary": "get a token",
                 "tags": [
-                    "auth"
+                    "user"
                 ]
             }
         },
         "/neighborhood": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "summary": "Get the list of neighborhoods",
+                "tags": [
+                    "neighborhoods"
+                ]
+            }
+        },
+        "/neighborhood/announcement": {
+            "get": {
+                "parameters": [
+                    {
+                        "description": "From ID",
+                        "in": "query",
+                        "name": "from",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [
+                        ]
+                    }
+                ],
+                "summary": "Get the list of announcement for current neighborhoods",
+                "tags": [
+                    "neighborhoods"
+                ]
+            }
+        },
+        "/neighborhood/people": {
             "get": {
                 "responses": {
                     "200": {
@@ -78,7 +187,7 @@
                         ]
                     }
                 ],
-                "summary": "Get the list of neighborhoods",
+                "summary": "Get the list of person for current neighborhoods",
                 "tags": [
                     "neighborhoods"
                 ]
@@ -119,6 +228,35 @@
         },
         "/offer": {
             "get": {
+                "parameters": [
+                    {
+                        "description": "search",
+                        "in": "query",
+                        "name": "search",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "category",
+                        "in": "query",
+                        "name": "category",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "description": "owner",
+                        "in": "query",
+                        "name": "owner",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation"
@@ -134,6 +272,192 @@
                     }
                 ],
                 "summary": "Get the list of offers",
+                "tags": [
+                    "offers"
+                ]
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "category": {
+                                        "type": "integer"
+                                    },
+                                    "type": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "type": "number"
+                                    },
+                                    "image": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "title",
+                                    "category",
+                                    "type",
+                                    "status",
+                                    "price",
+                                    "description"
+                                ],
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [
+                        ]
+                    }
+                ],
+                "summary": "Create an offer",
+                "tags": [
+                    "offers"
+                ]
+            }
+        },
+        "/offer/{id}": {
+            "delete": {
+                "parameters": [
+                    {
+                        "description": "Offer ID",
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [
+                        ]
+                    }
+                ],
+                "summary": "Delete an offer",
+                "tags": [
+                    "offers"
+                ]
+            },
+            "put": {
+                "parameters": [
+                    {
+                        "description": "Offer ID",
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "category": {
+                                        "type": "integer"
+                                    },
+                                    "type": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "type": "number"
+                                    },
+                                    "image": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "title",
+                                    "category",
+                                    "type",
+                                    "status",
+                                    "price",
+                                    "description"
+                                ],
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [
+                        ]
+                    }
+                ],
+                "summary": "Update an offer",
                 "tags": [
                     "offers"
                 ]
@@ -223,8 +547,8 @@
     ],
     "tags": [
         {
-            "description": "Authentication",
-            "name": "auth"
+            "description": "User",
+            "name": "user"
         },
         {
             "description": "Neighborhoods",

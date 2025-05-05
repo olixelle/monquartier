@@ -41,6 +41,15 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
+
+        \App\Services\Announcement::create(
+            $request->name . " a rejoint votre quartier",
+            "user",
+            $user->id,
+            $user->neighborhood_id,
+            $user->image
+        );
+
         return response()->json([
             'success' => true,
             'message' => 'User registered successfully',
