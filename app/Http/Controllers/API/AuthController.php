@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -128,5 +129,57 @@ class AuthController extends Controller
                 'user' => auth()->user()
             ]
         ], 200);
+    }
+
+    public function editMe(Request $request) {
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'string',
+            'password' => 'string',
+            'password_confirmation' => 'string',
+            'description' => 'string',
+            'image' => 'string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation error',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+            $user = auth()->user();
+            if ($request->description) {
+                $user->description = $request->description;
+            }
+            if ($request->name) {
+                $user->name = $request->name;
+            }
+            if ($request->image) {
+                $imageHelper = new \App\Services\Image();
+                $user->image = $imageHelper->saveImage($request->image);
+            }
+            $user->save();
+
+            return response()->json([
+                'success' => true,
+                'data' => [
+                    'user' => new UserResource($user)
+                ]
+            ], 200);
+
+        } catch (\Exception $ex) {
+            return response()->json([
+                'success' => false,
+                'message' => $ex->getMessage()
+            ], 400);
+
+        }
+
+
+
+
     }
 }

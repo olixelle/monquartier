@@ -122,6 +122,78 @@
                 ]
             }
         },
+        "/me": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [
+                        ]
+                    }
+                ],
+                "summary": "Get current user details",
+                "tags": [
+                    "user"
+                ]
+            },
+            "put": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [
+                        ]
+                    }
+                ],
+                "summary": "Edit current user details",
+                "tags": [
+                    "user"
+                ]
+            }
+        },
         "/neighborhood": {
             "get": {
                 "responses": {
@@ -532,6 +604,556 @@
                     "publicmessages"
                 ]
             }
+        },
+        "/conversations": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [
+                        ]
+                    }
+                ],
+                "summary": "Get the list of private conversation",
+                "tags": [
+                    "conversations"
+                ]
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "with": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "required": [
+                                    "message"
+                                ],
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [
+                        ]
+                    }
+                ],
+                "summary": "Create a new private conversation",
+                "tags": [
+                    "conversations"
+                ]
+            }
+        },
+        "/conversations/{id}/messages": {
+            "get": {
+                "parameters": [
+                    {
+                        "description": "conversation ID",
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [
+                        ]
+                    }
+                ],
+                "summary": "Get the list of messages for a conversation",
+                "tags": [
+                    "conversations"
+                ]
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "message": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "message"
+                                ],
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "description": "conversation ID",
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [
+                        ]
+                    }
+                ],
+                "summary": "Post a message for a conversation",
+                "tags": [
+                    "conversations"
+                ]
+            }
+        },
+        "/event": {
+            "get": {
+                "parameters": [
+                    {
+                        "description": "From event ID",
+                        "in": "query",
+                        "name": "from",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [
+                        ]
+                    }
+                ],
+                "summary": "Get the list of events",
+                "tags": [
+                    "events"
+                ]
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "location": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "string"
+                                    },
+                                    "starts_at": {
+                                        "type": "string"
+                                    },
+                                    "ends_at": {
+                                        "type": "string"
+                                    },
+                                    "duration": {
+                                        "type": "integer"
+                                    },
+                                    "seats_total": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "required": [
+                                    "title",
+                                    "description",
+                                    "location",
+                                    "starts_at"
+                                ],
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [
+                        ]
+                    }
+                ],
+                "summary": "Post a new event",
+                "tags": [
+                    "events"
+                ]
+            }
+        },
+        "/event/{id}": {
+            "get": {
+                "parameters": [
+                    {
+                        "description": "Event ID",
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [
+                        ]
+                    }
+                ],
+                "summary": "Get event details",
+                "tags": [
+                    "events"
+                ]
+            },
+            "put": {
+                "parameters": [
+                    {
+                        "description": "Event ID",
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "location": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "string"
+                                    },
+                                    "starts_at": {
+                                        "type": "string"
+                                    },
+                                    "ends_at": {
+                                        "type": "string"
+                                    },
+                                    "duration": {
+                                        "type": "integer"
+                                    },
+                                    "seats_total": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "required": [
+                                    "title",
+                                    "description",
+                                    "location",
+                                    "starts_at"
+                                ],
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [
+                        ]
+                    }
+                ],
+                "summary": "Edit an event",
+                "tags": [
+                    "events"
+                ]
+            },
+            "delete": {
+                "parameters": [
+                    {
+                        "description": "Event ID",
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [
+                        ]
+                    }
+                ],
+                "summary": "Delete an event",
+                "tags": [
+                    "events"
+                ]
+            }
+        },
+        "/event/{id}/message": {
+            "get": {
+                "parameters": [
+                    {
+                        "description": "Event ID",
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [
+                        ]
+                    }
+                ],
+                "summary": "Get messages for an event",
+                "tags": [
+                    "events"
+                ]
+            },
+            "post": {
+                "parameters": [
+                    {
+                        "description": "Event ID",
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "message": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "message"
+                                ],
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [
+                        ]
+                    }
+                ],
+                "summary": "Submit a message for an event",
+                "tags": [
+                    "events"
+                ]
+            }
+        },
+        "/event/{id}/subscriptions": {
+            "get": {
+                "parameters": [
+                    {
+                        "description": "Event ID",
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [
+                        ]
+                    }
+                ],
+                "summary": "Get subscriptions for an event",
+                "tags": [
+                    "events"
+                ]
+            }
+        },
+        "/event/{id}/subscribe": {
+            "post": {
+                "parameters": [
+                    {
+                        "description": "Event ID",
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [
+                        ]
+                    }
+                ],
+                "summary": "Subscribe to an event",
+                "tags": [
+                    "events"
+                ]
+            }
+        },
+        "/event/{id}/unsubscribe": {
+            "post": {
+                "parameters": [
+                    {
+                        "description": "Event ID",
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Wrong authentication"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [
+                        ]
+                    }
+                ],
+                "summary": "Unsubscribe to an event",
+                "tags": [
+                    "events"
+                ]
+            }
         }
     },
     "servers": [
@@ -561,6 +1183,14 @@
         {
             "description": "Offers",
             "name": "offers"
+        },
+        {
+            "description": "Events",
+            "name": "events"
+        },
+        {
+            "description": "Private conversations",
+            "name": "conversations"
         }
     ]
 }

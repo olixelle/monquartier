@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('private_conversation', function (Blueprint $table) {
+        Schema::create('conversations', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('from');
             $table->bigInteger('to');
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamp('updated_at')->useCurrentOnUpdate();
         });
 
-        Schema::create('private_messages', function (Blueprint $table) {
+        Schema::create('conversation_messages', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('conversation');
             $table->bigInteger('owner');
