@@ -125,10 +125,8 @@ class AuthController extends Controller
     {
         return response()->json([
             'success' => true,
-            'data' => [
-                'user' => auth()->user()
-            ]
-        ], 200);
+            'data' => auth()->user()
+            ], 200);
     }
 
     public function editMe(Request $request) {

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class PublicMessageController extends Controller
 {
@@ -53,13 +54,12 @@ class PublicMessageController extends Controller
         $msg->message = $request->message;
         $msg->neighborhood = 1;
         $msg->owner = $request->user()->id;
+        $msg->created_at = Carbon::now();
         $msg->save();
 
         return response()->json([
             'success' => true,
-            'data' => [
-                new PublicMessageResource($msg)
-            ]
+            'data' => new PublicMessageResource($msg)
         ], 200);
     }
 }

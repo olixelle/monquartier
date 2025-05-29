@@ -14,10 +14,12 @@ class PublicMessageResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $imageHelper = new \App\Services\Image();
+
         return [
             'id' => $this->id,
             'by' => $this->user->name,
-            'image' => $this->user->image,
+            'image' => $imageHelper->getPublicUrl($this->user->image),
             'message' => $this->message,
             'created_at' => $this->created_at,
         ];
