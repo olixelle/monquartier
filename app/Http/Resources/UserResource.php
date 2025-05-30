@@ -19,6 +19,8 @@ class UserResource extends JsonResource
         return [
             'id' => $this->id,
             'created_at' => $this->created_at,
+            'description' => $this->description,
+            'neighborhood_id' => $this->neighborhood_id,
             'name' => $this->name,
             'image' => $imageHelper->getPublicUrl($this->image),
         ];

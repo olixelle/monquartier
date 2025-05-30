@@ -98,9 +98,7 @@ class AuthController extends Controller
             'success' => true,
             'message' => 'Login successful',
             'data' => [
-                'user' => $user,
                 'access_token' => $token,
-                'token_type' => 'Bearer',
             ]
         ], 200);
     }
@@ -125,7 +123,7 @@ class AuthController extends Controller
     {
         return response()->json([
             'success' => true,
-            'data' => auth()->user()
+            'data' => new UserResource(auth()->user())
             ], 200);
     }
 
@@ -163,9 +161,7 @@ class AuthController extends Controller
 
             return response()->json([
                 'success' => true,
-                'data' => [
-                    'user' => new UserResource($user)
-                ]
+                'data' => new UserResource($user)
             ], 200);
 
         } catch (\Exception $ex) {
